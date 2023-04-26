@@ -14,10 +14,7 @@ Asteroide::~Asteroide()
 }
 void Asteroide::Draw()
 {
-	if (vida==true)
-	{
-		DrawPolyLines(center, 12, Radio, 0.0, WHITE);
-	}
+	DrawPolyLines(center, 12, Radio, 0.0, WHITE);
 }
 void Asteroide::mover()
 {
@@ -30,7 +27,6 @@ void Asteroide::setDir(Vector2 dir)
 }
 void Asteroide::randomDir()
 {
-    srand(time(NULL));
     float x = ((float)rand() / RAND_MAX)*2.0-1.0;
     float y = ((float)rand() / RAND_MAX) * 2.0 - 1.0;
     this->direccion.x = 2 * x;
@@ -40,7 +36,7 @@ void Asteroide::colisionPantalla(Rectangle pantalla)
 {
 	if (center.x - Radio > pantalla.width)
 	{
-		center.x += center.x - pantalla.width;
+		center.x = center.x - pantalla.width;
 	}
 	if (center.x + Radio < 0)
 	{
@@ -58,11 +54,22 @@ void Asteroide::colisionPantalla(Rectangle pantalla)
 void Asteroide::randomPos()
 {
 	float x = 0; float y = 0;
-	srand(time(NULL));
 	do
 	{
 		x = ((float)rand() / RAND_MAX) * 800;
 		y = ((float)rand() / RAND_MAX) * 600;
 	} while (CheckCollisionPointCircle({ x,y }, {400,300},60));
 	center = { x,y };
+}
+Vector2 Asteroide::getCenter()
+{
+	return center;
+}
+float Asteroide::getRadio()
+{
+	return Radio;
+}
+void Asteroide::destroid()
+{
+	vida = false;
 }

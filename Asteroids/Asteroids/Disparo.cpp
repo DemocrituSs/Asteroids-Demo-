@@ -26,11 +26,10 @@ Vector2 Proyectil::getPosition()
 {
 	return position;
 }
-bool Proyectil::colision(Asteroide A)
+void Proyectil::colision(Asteroide* A)
 {
-	if (CheckCollisionPointCircle(position, A.center, A.Radio))
+	if (CheckCollisionPointCircle(position, A->getCenter(), A->getRadio()))
 	{
-		return true;
+		A->destroid();
 	}
-	return false;
 }

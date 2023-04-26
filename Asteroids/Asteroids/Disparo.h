@@ -12,7 +12,7 @@ public:
 	void mover();
 	void Draw();
 	//bool colision();
-	bool colision(Asteroide A);
+	void colision(Asteroide* A);
 	Vector2 getPosition();
 private:
 	Vector2 position;
