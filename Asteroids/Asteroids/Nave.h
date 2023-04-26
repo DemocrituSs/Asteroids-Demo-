@@ -1,8 +1,6 @@
 #pragma once
-#include "raylib.h"
 #include "functions.h"
-#include "utilidades.h"
-
+#include "Disparo.h"
 class Nave
 {
 private:
@@ -16,7 +14,7 @@ public:
 	Vector2 center;
 	Vector2 direction;
 	float radio=50/3;
-	int Speed=1;
+	float speed=0.0f;
 	//Ángulo de rotación
 	float angle = 0.0f;
 	int life = 3;
@@ -24,6 +22,7 @@ public:
 	//Nave(float posX, float posY);
 	Nave( int ancho, int largo);
 	~Nave();
+	void actualizar();
 	void actualizardireccion();
 	void actualizarCentro();
 	void move();
@@ -36,5 +35,7 @@ public:
 	void SetRotation();
 	void SetSpeed();
 	//Getters
+	Vector2 getDireccion();
+	Vector2 getCentro();
 };
 

@@ -1,4 +1,3 @@
-#include <math.h>
 #include "Nave.h"
 #include <cmath>
 //métodos útiles
@@ -21,20 +20,11 @@ Vector2 restar(Vector2 v1, Vector2 v2)
 }
 Vector2 rotarVector(Vector2 v, float angulo)
 {
-	double rad = (double)angulo * PI/180.0;
+	double rad = (double)angulo * PI / 180.0;
 	double x = cos(rad) * v.x - sin(rad) * v.y;
 	double y = cos(rad) * v.y + sin(rad) * v.x;
-	return { (float)x,(float)y};
-}
-/*
-Vector2 rotarAntiHorario(Vector2 v, float angulo)
-{
-	double rad = (360+angulo) * PI / 180.0;
-	double x = cos(rad) * v.x - sin(rad) * v.y;
-	double y = cos(rad) * v.x + sin(rad) * v.y;
 	return { (float)x,(float)y };
 }
-*/
 Nave::Nave()
 {
 	int ancho = 800;
@@ -45,7 +35,6 @@ Nave::Nave()
 	v3 = { center.x + 10, center.x + (50 / 3) };
 	direction = restar(v1,center);
 	direction = normalizar(direction);
-	//direction.y = -1*direction.y;
 }
 Nave::Nave(int ancho, int largo)
 {
@@ -70,10 +59,15 @@ void Nave::move()
 {
 	if (IsKeyDown(KEY_UP))
 	{
+		speed = 3.0f;
+		//direction.x *= speed;
+		//direction.y *= speed;
+		/*
 		center = sumar(center, direction);
 		v1 = sumar(v1, direction);
 		v2 = sumar(v2, direction);
 		v3 = sumar(v3, direction);
+		*/
 	}
 	//Rotación
 
@@ -124,7 +118,7 @@ bool Nave::disparar()
 {
 	if (IsKeyPressed(KEY_SPACE))
 	{
-
+		return true;
 	}
 	return false;
 }
@@ -149,10 +143,6 @@ void Nave::actualizardireccion()
 {
 	direction = restar(v1, center);
 	direction = normalizar(direction);
-	//direction.y = -1 * direction.y;
-	/*Vector2 dir = {(2 * v1.x + v2.x - v3.x) / 2,(2 * v1.y + v2.y - v3.y) / 2};
-	direction = normalizar(dir);
-	direction.y = -direction.y; */
 }
 void Nave::rotar(float angle)
 {
@@ -165,4 +155,27 @@ void Nave::rotar(float angle)
 	v3 = restar(v3,center);
 	v3 = rotarVector(v3, angle);
 	v3 = sumar(v3, center);
+}
+void Nave::actualizar()
+{
+	if (speed > 3)
+	{
+		speed = 3.0f;
+	}
+	direction.x *= speed;
+	direction.y *= speed;
+
+	speed *= 0.9f;
+	center = sumar(center, direction);
+	v1 = sumar(v1, direction);
+	v2 = sumar(v2, direction);
+	v3 = sumar(v3, direction);
+}
+Vector2 Nave::getDireccion()
+{
+	return direction;
+}
+Vector2 Nave::getCentro()
+{
+	return center;
 }

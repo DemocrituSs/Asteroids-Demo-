@@ -1,3 +1,2 @@
-﻿  Nave.cpp
-C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Asteroids\Nave.cpp(7,13): warning C4244: 'return': conversión de 'double' a 'float'; posible pérdida de datos
+﻿  Game.cpp
   Asteroids.vcxproj -> C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Debug\Asteroids.exe

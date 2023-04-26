@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Algebra.h" />
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Disparo.h" />
     <ClInclude Include="functions.h" />
