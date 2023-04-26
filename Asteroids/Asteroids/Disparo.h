@@ -14,9 +14,12 @@ public:
 	//bool colision();
 	void colision(Asteroide* A);
 	Vector2 getPosition();
+	void destroid() { vida = false; };
+	bool vive() { return vida; };
 private:
 	Vector2 position;
 	Vector2 direction;
 	float speed=10.0f;
+	bool vida = true;
 };
 

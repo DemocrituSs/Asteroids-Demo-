@@ -59,13 +59,10 @@ void Game::UpdateGame()
 	for (auto P: Disparos)
 	{
 		P->mover();
-		for (auto A : Asteroides)
-		{
-			P->colision(A);
-		}
 	}
+	ColisionDispAsteroide();
 	Disparos.erase(std::remove_if(Disparos.begin(), Disparos.end(), [](Proyectil* d) {
-		return d->getPosition().x < 0 || d->getPosition().x > 800 || d->getPosition().y < 0 || d->getPosition().y > 600;
+		return !d->vive();
 		}), Disparos.end());
 	jugador->colisionPantalla(Pantalla);
 	jugador->actualizar();
@@ -97,11 +94,22 @@ void Game::GenerateOutput()
 	}
 	*/
 	//DrawTriangleLines(v1, v2, v3, WHITE);
-	std::string texto = "cant proyectiles " + std::to_string(cont_Proyectiles);
+	std::string texto = "Puntos: " + std::to_string(Puntuacion);
 	DrawText(texto.c_str(),10,10,20,WHITE);
 	EndDrawing();
 }
 void Game::ColisionDispAsteroide()
 {
-
+	for (auto P : Disparos)
+	{
+		for (auto A : Asteroides)
+		{
+			if (CheckCollisionPointCircle(P->getPosition(), A->getCenter(), A->getRadio()))
+			{
+				P->destroid();
+				A->destroid();
+				Puntuacion += 10;
+			}
+		}
+	}
 }

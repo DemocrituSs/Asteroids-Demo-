@@ -19,6 +19,7 @@ private:
 	std::vector<Asteroide*> Asteroides;
 	//Asteroide* A = new Asteroide();
 	int cont_Proyectiles=0;
+	int Puntuacion = 0;
 	bool disparo;
 	bool dibujar = true;
 	void ProcessInput();

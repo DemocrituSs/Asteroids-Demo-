@@ -1,7 +1,3 @@
-﻿  Asteroid.cpp
-C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Asteroids\Asteroid.cpp(30,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Asteroids\Asteroid.cpp(31,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  Game.cpp
+﻿  Game.cpp
 C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Asteroids\Game.cpp(20,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-  Generando código...
   Asteroids.vcxproj -> C:\Users\Adriel\Desktop\GAME JAM 03 (2023)\Nuevos Juegos\Asteroids\Debug\Asteroids.exe
