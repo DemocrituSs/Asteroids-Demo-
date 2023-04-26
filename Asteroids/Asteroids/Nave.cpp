@@ -32,7 +32,7 @@ Nave::Nave()
 	center = { ancho / 2.0f,largo / 2.0f };
 	v1 = { center.x, center.y - (50 / 3) };
 	v2 = { center.x - 10, center.y + (50 / 3) };
-	v3 = { center.x + 10, center.x + (50 / 3) };
+	v3 = { center.x + 10, center.y + (50 / 3) };
 	direction = restar(v1,center);
 	direction = normalizar(direction);
 }
@@ -45,12 +45,6 @@ Nave::Nave(int ancho, int largo)
 	direction = restar(v1, center);
 	direction = normalizar(direction);
 }
-/*
-Nave::Nave(float posX, float posY)
-{
-
-}
-*/
 Nave::~Nave()
 {
 
@@ -60,14 +54,6 @@ void Nave::move()
 	if (IsKeyDown(KEY_UP))
 	{
 		speed = 3.0f;
-		//direction.x *= speed;
-		//direction.y *= speed;
-		/*
-		center = sumar(center, direction);
-		v1 = sumar(v1, direction);
-		v2 = sumar(v2, direction);
-		v3 = sumar(v3, direction);
-		*/
 	}
 	//Rotación
 
@@ -123,17 +109,17 @@ bool Nave::disparar()
 	return false;
 }
 //Setters
-void Nave::SetPosition()
+void Nave::SetPositionInicial()
 {
-
-}
-void Nave::SetRotation()
-{
-
-}
-void Nave::SetSpeed()
-{
-
+	int ancho = 800;
+	int largo = 600;
+	center = { ancho / 2.0f,largo / 2.0f };
+	v1 = { center.x, center.y - (50 / 3) };
+	v2 = { center.x - 10, center.y + (50 / 3) };
+	v3 = { center.x + 10, center.y + (50 / 3) };
+	direction = restar(v1, center);
+	direction = normalizar(direction);
+	speed = 0.0f;
 }
 void Nave::actualizarCentro()
 {

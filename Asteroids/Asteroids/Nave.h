@@ -31,9 +31,9 @@ public:
 	void colisionPantalla(Rectangle pantalla);
 	bool disparar();
 	//Setters
-	void SetPosition();
-	void SetRotation();
-	void SetSpeed();
+	void SetPositionInicial();
+	//void SetRotation();
+	//void SetSpeed();
 	//Getters
 	Vector2 getDireccion();
 	Vector2 getCentro();

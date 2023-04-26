@@ -18,13 +18,17 @@ private:
 	std::vector<Proyectil*> Disparos;
 	std::vector<Asteroide*> Asteroides;
 	//Asteroide* A = new Asteroide();
-	int cont_Proyectiles=0;
+	int cont_Asteroides=0;
 	int Puntuacion = 0;
+	int vidaJugador = 3;
 	bool disparo;
 	bool dibujar = true;
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();
 	void ColisionDispAsteroide();
+	void colisionNave();
+	void condicionesIniciales();
+	void NuevosAsteroides();
 };
 

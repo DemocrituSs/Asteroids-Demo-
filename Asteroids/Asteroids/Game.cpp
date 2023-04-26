@@ -10,27 +10,36 @@ Game::~Game()
 {
 	//delete jugador;
 }
+void Game::condicionesIniciales()
+{
+	cont_Asteroides = 0;
+	Puntuacion = 0;
+	vidaJugador = 3;
+	jugador->SetPositionInicial();
+	NuevosAsteroides();
+}
 //Métodos más importantes
 void Game::Initialize()
 {
 	SetTargetFPS(60);
 	InitWindow(800, 600, "Asteroids");
-	//A->randomDir();
-	//A->randomPos();
-	srand(time(NULL));
-	for (int i = 0; i < 10; i++)
-	{
-		Asteroide* Ast = new Asteroide();
-		Asteroides.push_back(Ast);
-	}
+	condicionesIniciales();
+	
 }
 void Game::Runloop()
 {
 	while (!WindowShouldClose())
 	{
-		ProcessInput();
-		UpdateGame();
-		GenerateOutput();
+		if (vidaJugador > 0) 
+		{
+			ProcessInput();
+			UpdateGame();
+			GenerateOutput();
+		}
+		else
+		{
+			condicionesIniciales();
+		}
 	}
 }
 void Game::Shutdown()
@@ -42,11 +51,16 @@ void Game::ProcessInput()
 {
 	jugador->move();
 	disparo = jugador->disparar();
-	//A->mover();
 	if (disparo)
 	{
 		Proyectil* PUM = new Proyectil(jugador->getCentro(), jugador->getDireccion());
 		Disparos.push_back(PUM);
+	}
+	if (cont_Asteroides ==0)
+	{
+		NuevosAsteroides();
+		jugador->SetPositionInicial();
+		vidaJugador++;
 	}
 }
 void Game::UpdateGame()
@@ -62,9 +76,19 @@ void Game::UpdateGame()
 	}
 	ColisionDispAsteroide();
 	Disparos.erase(std::remove_if(Disparos.begin(), Disparos.end(), [](Proyectil* d) {
-		return !d->vive();
+		return !d->vive() || d->getPosition().x < 0 || d->getPosition().x > 800 || d->getPosition().y < 0 || d->getPosition().y > 600;
 		}), Disparos.end());
+	for (auto it = Asteroides.begin(); it != Asteroides.end();) {
+		if (!(*it)->vive()) {
+			delete (*it);
+			it = Asteroides.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
 	jugador->colisionPantalla(Pantalla);
+	colisionNave();
 	jugador->actualizar();
 	jugador->actualizarCentro();
 	jugador->actualizardireccion();
@@ -74,28 +98,18 @@ void Game::GenerateOutput()
 	BeginDrawing();
 	ClearBackground(BLACK);
 	jugador->Draw();
-	cont_Proyectiles = 0;
 	for (auto P : Disparos)
 	{
 		P->Draw();
-		cont_Proyectiles++;
 	}
 	for (auto A : Asteroides)
 	{
-		if (A->vive())
-		{
-			A->Draw();
-		}
-	}
-	/*
-	if (dibujar)
-	{
 		A->Draw();
 	}
-	*/
-	//DrawTriangleLines(v1, v2, v3, WHITE);
 	std::string texto = "Puntos: " + std::to_string(Puntuacion);
 	DrawText(texto.c_str(),10,10,20,WHITE);
+	std::string vidas = "Vidas: " + std::to_string(vidaJugador);
+	DrawText(vidas.c_str(), 700, 10, 20, WHITE);
 	EndDrawing();
 }
 void Game::ColisionDispAsteroide()
@@ -109,7 +123,30 @@ void Game::ColisionDispAsteroide()
 				P->destroid();
 				A->destroid();
 				Puntuacion += 10;
+				cont_Asteroides--;
 			}
 		}
+	}
+}
+void Game::colisionNave()
+{
+	for (auto A : Asteroides)
+	{
+		if (CheckCollisionCircles(A->getCenter(),A->getRadio(),jugador->getCentro(),50/3))
+		{
+			vidaJugador--;
+			jugador->SetPositionInicial();
+		}
+	}
+}
+void Game::NuevosAsteroides()
+{
+	Asteroides.clear();
+	srand(time(NULL));
+	for (int i = 0; i < 10; i++)
+	{
+		Asteroide* Ast = new Asteroide();
+		Asteroides.push_back(Ast);
+		cont_Asteroides++;
 	}
 }
