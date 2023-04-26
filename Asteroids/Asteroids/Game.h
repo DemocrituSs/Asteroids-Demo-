@@ -16,8 +16,11 @@ private:
 	Rectangle Pantalla = { 0,0,800,600 };
 	Nave* jugador = new Nave(800,600);
 	std::vector<Proyectil*> Disparos;
+	std::vector<Asteroide> Asteroides;
+	Asteroide A;
 	int cont_Proyectiles=0;
 	bool disparo;
+	bool dibujar = true;
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();

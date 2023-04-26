@@ -1,5 +1,8 @@
 #pragma once
 #include "raylib.h"
+#include "Asteroid.h"
+
+class Asteroide;
 class Proyectil
 {
 public:
@@ -8,7 +11,8 @@ public:
 	void update(Vector2 pos, Vector2 dir);
 	void mover();
 	void Draw();
-	bool colision();
+	//bool colision();
+	bool colision(Asteroide A);
 	Vector2 getPosition();
 private:
 	Vector2 position;

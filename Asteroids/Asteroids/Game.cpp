@@ -14,6 +14,8 @@ void Game::Initialize()
 {
 	SetTargetFPS(60);
 	InitWindow(800, 600, "Asteroids");
+	//A->randomDir();
+	//A->randomPos();
 }
 void Game::Runloop()
 {
@@ -33,6 +35,7 @@ void Game::ProcessInput()
 {
 	jugador->move();
 	disparo = jugador->disparar();
+	A.mover();
 	if (disparo)
 	{
 		Proyectil* PUM = new Proyectil(jugador->getCentro(), jugador->getDireccion());
@@ -44,6 +47,10 @@ void Game::UpdateGame()
 	for (auto P: Disparos)
 	{
 		P->mover();
+		if (P->colision(A))
+		{
+			dibujar = false;
+		}
 	}
 	Disparos.erase(std::remove_if(Disparos.begin(), Disparos.end(), [](Proyectil* d) {
 		return d->getPosition().x < 0 || d->getPosition().x > 800 || d->getPosition().y < 0 || d->getPosition().y > 600;
@@ -73,6 +80,7 @@ void Game::UpdateGame()
 	jugador->actualizar();
 	jugador->actualizarCentro();
 	jugador->actualizardireccion();
+	A.colisionPantalla(Pantalla);
 }
 void Game::GenerateOutput()
 {
@@ -84,6 +92,10 @@ void Game::GenerateOutput()
 	{
 		P->Draw();
 		cont_Proyectiles++;
+	}
+	if (dibujar)
+	{
+		A.Draw();
 	}
 	//DrawTriangleLines(v1, v2, v3, WHITE);
 	std::string texto = "cant proyectiles " + std::to_string(cont_Proyectiles);
